@@ -1,3 +1,4 @@
+const BACKEND_URL = "https://auth-website2-production.up.railway.app"
 let currentUserEmail = ""; 
 let currentWizardStep = 1;
 
@@ -70,7 +71,8 @@ async function handleRegister(event) {
     const password = document.getElementById('reg-password')?.value || "";
 
     try {
-        const response = await fetch('/api/register', {
+        // 🚨 Updated to call your live Railway server over the web:
+        const response = await fetch(`${BACKEND_URL}/api/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password })
@@ -86,6 +88,7 @@ async function handleRegister(event) {
     }
 }
 
+
 // Safe User Login API request
 async function handleLogin(event) {
     event.preventDefault();
@@ -95,7 +98,8 @@ async function handleLogin(event) {
     const password = document.getElementById('login-password')?.value || "";
 
     try {
-        const response = await fetch('/api/login', {
+        // 🚨 Updated to call your live Railway server over the web:
+        const response = await fetch(`${BACKEND_URL}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -110,6 +114,7 @@ async function handleLogin(event) {
         showMessage('Connection to server lost.', 'error');
     }
 }
+
 
 // Directs workspace routing based on whether profile database rows exist
 function routeUserFlow(userData) {
@@ -146,7 +151,6 @@ async function submitProfile(event) {
     event.preventDefault();
     hideMessage();
     
-    // Safely reads all 25 element values using protective fallback handlers
     const profilePayload = {
         email: currentUserEmail,
         age: document.getElementById('q-age')?.value || "N/A",
@@ -177,7 +181,8 @@ async function submitProfile(event) {
     };
 
     try {
-        const response = await fetch('/api/save-profile', {
+        // 🚨 Updated to call your live Railway server over the web:
+        const response = await fetch(`${BACKEND_URL}/api/save-profile`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(profilePayload)
@@ -198,6 +203,7 @@ async function submitProfile(event) {
         showMessage('Error updating profile information.', 'error');
     }
 }
+
 
 function handleLogout() {
     document.getElementById('secure-area').classList.add('hidden');
