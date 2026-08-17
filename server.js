@@ -12,9 +12,6 @@ app.use(express.static(path.join(__dirname)));
 
 let db;
 
-// Force the server to listen immediately to prevent premature terminal exits
-app.listen(3000, () => console.log('🟢 Backend Server live on http://127.0.0.1:3000'));
-
 // Initialize relational schema mapping structures
 (async () => {
     try {
@@ -105,4 +102,6 @@ app.post('/api/save-profile', async (req, res) => {
         res.status(500).json({ error: `Database Error: ${e.message}` });
     }
 });
+
+// 🚨 SINGLE, CORRECT CLOUD-COMPATIBLE LISTENER MAPPED DYNAMICALLY
 app.listen(process.env.PORT || 3000, () => console.log('🟢 Backend Server live'));
