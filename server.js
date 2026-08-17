@@ -105,3 +105,4 @@ app.post('/api/save-profile', async (req, res) => {
         res.status(500).json({ error: `Database Error: ${e.message}` });
     }
 });
+app.listen(process.env.PORT || 3000, () => console.log('🟢 Backend Server live'));
